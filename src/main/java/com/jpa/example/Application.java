@@ -44,5 +44,7 @@ public class Application implements CommandLineRunner {
 		allUsers.forEach(user2->{
 			System.out.println(user2.getAge());
 		});
+
+
 	}
 }

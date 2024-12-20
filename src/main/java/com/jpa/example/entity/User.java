@@ -27,6 +27,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType = UserType.STUDENT;
 
+    @Embedded
+    private Address address;
+
 
 
 
