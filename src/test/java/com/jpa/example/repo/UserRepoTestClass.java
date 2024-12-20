@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -27,5 +28,17 @@ public class UserRepoTestClass {
         },() -> {
             System.out.println("user does not found");
         });
+    }
+
+    @Test
+    public void testCount(){
+        int totalUsersWithSameEmail = userRepository.countByEmail("gauravrsharmamca@yahoo.com");
+        System.out.println(totalUsersWithSameEmail +"are there will same email id ");
+    }
+
+    @Test
+    public void repoTest2(){
+        List<User> user = userRepository.getUserByCountry("Bharat");
+        user.forEach(usr -> System.out.println("name country"+usr.getName()));
     }
 }
