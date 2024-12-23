@@ -30,6 +30,6 @@ public class User {
     @Embedded
     private Address address;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Laptop laptop;
 }

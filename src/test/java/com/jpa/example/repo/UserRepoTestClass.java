@@ -1,18 +1,25 @@
 package com.jpa.example.repo;
 
 
+import com.jpa.example.entity.Category;
 import com.jpa.example.entity.Laptop;
+import com.jpa.example.entity.Product;
 import com.jpa.example.entity.User;
+import com.jpa.example.repository.CategoryRepository;
 import com.jpa.example.repository.LaptopRepository;
+import com.jpa.example.repository.ProductRepository;
 import com.jpa.example.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
+@Slf4j
 public class UserRepoTestClass {
 
     @Autowired
@@ -20,6 +27,12 @@ public class UserRepoTestClass {
 
     @Autowired
     private LaptopRepository laptopRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Test
     public void repoTest(){
         Optional<User> user  = userRepository.findByEmail("g@gmail.com");
@@ -67,5 +80,35 @@ public class UserRepoTestClass {
         System.out.println("the user belongs to laptop id 1 is "+user.getName());
         Laptop laptop1 = user.getLaptop();
         System.out.println("the laptop belongs to Gaurav is "+laptop1.getId());
+    }
+
+    @Test
+    public void testCategoryWithProduct(){
+
+
+        Category category = new Category();
+        category.setCategoryId(102);
+        category.setCategoryName("Laptop");
+
+        Product macBook = new Product();
+        macBook.setProductName("Macbook");
+        macBook.setCategory(category);
+
+
+
+
+        Product dell = new Product();
+        dell.setProductName("dell");
+        dell.setCategory(category);
+
+        List<Product> productList = new ArrayList<>();
+        productList.add(macBook);
+        productList.add(dell);
+
+        category.setProduct(productList);
+        categoryRepository.save(category);
+
+        log.info("category and product saved");
+
     }
 }
