@@ -2,6 +2,7 @@ package com.jpa.example;
 
 import com.jpa.example.dto.UserType;
 import com.jpa.example.entity.Address;
+import com.jpa.example.entity.Laptop;
 import com.jpa.example.entity.User;
 import com.jpa.example.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,19 @@ class ApplicationTests {
 		user.setAge(19);
 		user.setAddress(address);
 		userRepository.save(user);
+
+	}
+
+	@Test
+	public void testSaveOnetoOne(){
+
+		User user = userRepository.findById(122).orElseThrow(()-> new RuntimeException("user not found"));
+
+		Laptop laptop = new Laptop();
+		laptop.setModel("Dell");
+		laptop.setAbout("bery goood");
+		user.setLaptop(laptop);
+		laptop.setUser(user);
 
 	}
 }

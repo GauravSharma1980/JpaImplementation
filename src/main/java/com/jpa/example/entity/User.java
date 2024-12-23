@@ -30,7 +30,6 @@ public class User {
     @Embedded
     private Address address;
 
-
-
-
+    @OneToOne(mappedBy = "user")
+    private Laptop laptop;
 }
